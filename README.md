@@ -1,7 +1,7 @@
 #Go by Examples
 
 * [Files](files/)
-* [Command-line arguments](command-file-arguments/)
+* [Command-line arguments](command-line-arguments/)
 
 ##Addition links
 * [Go by Example](https://gobyexample.com/)
