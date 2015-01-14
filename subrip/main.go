@@ -9,13 +9,35 @@ import (
     // "strings"
 )
 
-type Subtitle []SubtitleBlock
+type Subtitle []SubtitlePiece
 
-type SubtitleBlock struct{
-    Index int64;
-    TimeStart time.Time;
-    TimeFinish time.Time;
-    Content string;
+func (subs *Subtitle) SaveHTML(filename string) (err error) {
+    fo, err := os.Create(filename)
+    if (err != nil) {
+        return err
+    }
+    defer func() {
+        if err := fo.Close(); err != nil {
+            panic(err)
+        }
+    }()
+    w := bufio.NewWriter(fo)
+    for _, value := range *subs {
+        fmt.Fprintf(w, "<div>%s</div>", value.content)
+    }
+    w.Flush()
+    return nil
+}
+
+type SubtitlePiece struct{
+    index int64;
+    timeStart time.Time;
+    timeFinish time.Time;
+    content string;
+}
+
+func (subs *Subtitle) Add(piece *SubtitlePiece) {
+    *subs = append(*subs, *piece)
 }
 
 func check(err error) {
@@ -25,45 +47,40 @@ func check(err error) {
 }
 
 func main() {
-    file, err := os.Open("example.srt")
+    filename := os.Args[1]
+    file, err := os.Open(filename)
     check(err)
     defer file.Close()
 
     scanner := bufio.NewScanner(file)
-    var subs Subtitle
+    subs := new(Subtitle)
     for scanner.Scan() {
         if scanner.Text() == "" {
             scanner.Scan()
         }
-        var block SubtitleBlock;
+        piece := new(SubtitlePiece)
         //ind := scanner.Text()
         //fmt.Println(ind)
-        //block.Index, err = strconv.Atoi(ind)
-        //block.Index, err = strconv.ParseInt(ind, 0, 32)
+        //piece.index, err = strconv.Atoi(ind)
+        //piece.index, err = strconv.ParseInt(ind, 0, 32)
         //check(err)
         scanner.Scan()
         interval := scanner.Text()
-        block.TimeStart, err = time.Parse(time.RFC3339, interval[:12])
-        block.TimeFinish, err = time.Parse(time.RFC3339, interval[17:])
+        piece.timeStart, err = time.Parse(time.RFC3339, interval[:12])
+        piece.timeFinish, err = time.Parse(time.RFC3339, interval[17:])
         for scanner.Scan() {
             if scanner.Text() == "" {
                 break;
             }
-            block.Content = block.Content + " " + scanner.Text()
+            piece.content = piece.content + " " + scanner.Text()
         }
         // fmt.Println(block.Content)
-        subs = append(subs, block)
+        subs.Add(piece)
 
         err := scanner.Err()
         check(err)
     }
 
-    fo, err := os.Create("output.html")
+    err = subs.SaveHTML("output.html")
     check(err)
-    defer fo.Close();
-    w := bufio.NewWriter(fo)
-    for _, value := range subs {
-        fmt.Fprintf(w, "<div>%s</div>", value.Content)
-    }
-    w.Flush()
 }
