@@ -4,6 +4,7 @@
 * [Command-line arguments](command-line-arguments/)
 * [Object](object/)
 * [Subtitles parser](subrip/)
+* [Bubble Sort](bubble-sort/main.go)
 
 ##Addition links
 * [Go by Example](http://gobyexample.com/) by [Mark McGranaghan](http://github.com/mmcgrana)
