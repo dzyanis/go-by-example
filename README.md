@@ -1,6 +1,7 @@
 #Introducing Go
 
 * [Variables](variables/)
+* [Input/Output](input-output/)
 
 #Go by Examples
 
