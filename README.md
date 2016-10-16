@@ -2,6 +2,7 @@
 
 * [Variables](variables/)
 * [Input/Output](input-output/)
+* [Array](array/)
 
 #Go by Examples
 
