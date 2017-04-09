@@ -3,6 +3,7 @@
 * [Variables](variables/)
 * [Input/Output](input-output/)
 * [Array](array/)
+* [Slices](slices/)
 
 #Go by Examples
 
