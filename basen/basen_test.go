@@ -40,7 +40,7 @@ func TestDecode(t *testing.T) {
 func TestEncodeDecode(t *testing.T) {
 	dn := NewBaseN(Base62Table)
 
-	for i:=0; i<10; i++ {
+	for i := 0; i < 10; i++ {
 		if dn.Decode(dn.Encode(uint(i))) != i {
 			t.Error("Unexpected behaviour")
 		}

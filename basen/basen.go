@@ -6,22 +6,22 @@ import (
 )
 
 const (
-	Base62Table = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	Base62Table     = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	BaseBinaryTable = "01"
-	BaseHexTable = "0123456789ABCDEF"
+	BaseHexTable    = "0123456789ABCDEF"
 )
 
 type BaseN struct {
 	table string
-	hash map[rune]int
-	n uint
+	hash  map[rune]int
+	n     uint
 }
 
 func NewBaseN(table string) *BaseN {
 	bn := &BaseN{
 		table: table,
-		hash: make(map[rune]int, len(table)),
-		n: uint(len(table)),
+		hash:  make(map[rune]int, len(table)),
+		n:     uint(len(table)),
 	}
 
 	for i, r := range table {
@@ -51,7 +51,7 @@ func (bn *BaseN) Decode(b string) int {
 	len := len(b) - 1
 	for i, r := range b {
 		v := bn.hash[r]
-		n += v * int(math.Pow(float64(bn.n), float64(len - i)))
+		n += v * int(math.Pow(float64(bn.n), float64(len-i)))
 	}
 	return n
 }
