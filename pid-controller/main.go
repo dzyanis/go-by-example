@@ -29,9 +29,9 @@ func (pidc *PIDController) Iteration(value float64) (result float64) {
 	value = value - pidc.value
 	pidc.integral += value
 	derivative := (value - pidc.value) * pidc.frequency
-	result = (pidc.kp * value)
-	result += (pidc.ki * pidc.integral / pidc.frequency)
-	result += (pidc.kd * derivative)
+	result = pidc.kp * value
+	result += pidc.ki * pidc.integral / pidc.frequency
+	result += pidc.kd * derivative
 	pidc.value = value
 	return result
 }
