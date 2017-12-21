@@ -15,7 +15,7 @@ func main() {
 	f := float32(i) / 2
 	fmt.Printf("Value %v = %v\n", f, reflect.TypeOf(f)) // float64
 
-	d := f*0.9876543219876543321
+	d := f * 0.9876543219876543321
 	fmt.Printf("Value %v = %v\n", d, reflect.TypeOf(d)) // float64
 
 	ch := 'A'

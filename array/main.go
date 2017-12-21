@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	const a1l = 2;
+	const a1l = 2
 	var a1 [a1l]int
 	a1[0] = 1
 	a1[1] = 2
