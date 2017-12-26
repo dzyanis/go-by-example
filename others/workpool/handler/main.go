@@ -1,6 +1,3 @@
-/*
-Example of line filter
-*/
 package main
 
 import (
@@ -40,7 +37,7 @@ func worker(line string) {
 func dispetcher(numbers chan string) {
 	for {
 		select {
-		case number := <- numbers:
+		case number := <-numbers:
 			log("Working on: " + number)
 			go worker(number)
 			wg.Add(1)
@@ -62,14 +59,14 @@ func main() {
 
 	for scanner.Scan() {
 		select {
-			case numbers <- scanner.Text():
-				log("Send numbers: " + scanner.Text())
-				if i > max {
-					wg.Wait()
-					os.Exit(0)
-				} else {
-					i++
-				}
+		case numbers <- scanner.Text():
+			log("Send numbers: " + scanner.Text())
+			if i > max {
+				wg.Wait()
+				os.Exit(0)
+			} else {
+				i++
+			}
 		}
 	}
 	if err := scanner.Err(); err != nil {
