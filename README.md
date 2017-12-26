@@ -4,10 +4,9 @@
 * [Command-line arguments](command-line-arguments/)
 * [Subtitles parser](subrip/)
 
+## Data structures
 
-#Data structures
-
-#Algorithms
+## Algorithms
 * [Bubble Sort](algorithms/bubble-sort/main.go)
 
 ## Others
